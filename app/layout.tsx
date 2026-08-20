@@ -7,11 +7,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Bloglist App</title>
+      </head>
       <body>
         <nav>
           <Link href="/">home</Link>
           {" | "}
           <Link href="/blogs">blogs</Link>
+          {" | "}
+          <Link href="/blogs/new">create new</Link>
         </nav>
         {children}
       </body>
