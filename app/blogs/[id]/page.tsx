@@ -4,7 +4,7 @@ import { getBlogById } from "../../services/blogs"
 
 const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
-  const blog = getBlogById(Number(id))
+  const blog = await getBlogById(Number(id))
 
   if (!blog) {
     notFound()

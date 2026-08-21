@@ -3,6 +3,7 @@ const Home = () => {
     <div>
       <div>
         <h2>Bloglist App</h2>
+        <p>V2 with DB</p>
         An example app for{" "}
         <a href="https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-nextjs">
           Full Stack Open Next.js

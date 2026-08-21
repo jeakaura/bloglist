@@ -6,7 +6,7 @@ const Blogs = async ({
   searchParams: Promise<{ filter?: string }>
 }) => {
   const { filter } = await searchParams
-  const blogs = getBlogs()
+  const blogs = await getBlogs()
   return (
     <div>
       <h2>Blogs</h2>
