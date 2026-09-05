@@ -5,14 +5,9 @@ import { revalidatePath } from "next/cache"
 import { addBlog, incrementBlogLikes } from "../services/blogs"
 import { auth } from "@/auth"
 
-export type BlogFormState = {
-  errors: { title?: string; author?: string; url?: string }
-  values?: { title: string; author: string; url: string }
-}
-
 export const createBlog = async (
-  prevState: BlogFormState,
-  formData: FormData
+  prevState: { error: string; success?: boolean },
+  formData: FormData,
 ) => {
   const session = await auth()
   if (!session) {
@@ -23,26 +18,29 @@ export const createBlog = async (
   const author = formData.get("author") as string
   const url = formData.get("url") as string
 
-  const errors: BlogFormState["errors"] = {}
-
   if (!title || title.length < 5) {
-    errors.title = "Title must be at least 5 characters long"
+    return {
+      error: "Blog title must be at least 5 characters long",
+      success: false,
+    }
   }
   if (!author || author.length < 5) {
-    errors.author = "Author must be at least 5 characters long"
+    return {
+      error: "Blog author must be at least 5 characters long",
+      success: false,
+    }
   }
   if (!url || url.length < 5) {
-    errors.url = "URL must be at least 5 characters long"
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { errors, values: { title, author, url } }
+    return {
+      error: "Blog url must be at least 5 characters long",
+      success: false,
+    }
   }
   
   await addBlog(title, author, url)
 
   revalidatePath("/blogs")
-  redirect("/blogs")
+  return { error: "", success: true }
 }
 
 export const likeBlog = async (formData: FormData) => {
