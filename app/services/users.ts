@@ -31,3 +31,19 @@ export const getUsernameWithBlogs = async (username: string) => {
     with: { blogs: true },
   })
 }
+
+export const updateUserApiToken = async (username: string) => {
+  const user = await db.query.users.findFirst({
+    where: eq(users.username, username),
+  })
+
+  if (!user) {
+    throw new Error("User not found")
+  }
+
+  const newToken = crypto.randomUUID().toString()
+
+  await db.update(users).set({ apiToken: newToken }).where(eq(users.username, username))
+
+  return newToken
+}

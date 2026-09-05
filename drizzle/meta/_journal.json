@@ -15,6 +15,13 @@
       "when": 1788340372108,
       "tag": "0001_confused_triathlon",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788607183144,
+      "tag": "0002_sturdy_sally_floyd",
+      "breakpoints": true
     }
   ]
 }

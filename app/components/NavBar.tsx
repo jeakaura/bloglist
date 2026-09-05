@@ -23,7 +23,9 @@ const NavBar = () => {
             <Link href="/blogs/new" className="text-stone-700 hover:underline">
               Create new
             </Link>
-            <em className="text-stone-700">{session.user?.name} logged in</em>
+            <Link href="/me" className="text-stone-700 hover:underline">
+              Me ({session.user?.name})
+            </Link>
             <button
               onClick={() => signOut()}
               className="cursor-pointer border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-2 py-0 rounded-xl text-sm"

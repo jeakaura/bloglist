@@ -4,6 +4,8 @@ import { redirect } from "next/navigation"
 import bcrypt from "bcryptjs"
 import { db } from "../../db"
 import { users } from "../../db/schema"
+import { revalidatePath } from "next/cache"
+import { updateUserApiToken } from "../services/users"
 
 export type UserFormState = {
   errors: { username?: string; name?: string; password?: string, passwordConfirm?: string }
@@ -49,4 +51,10 @@ export const registerUser = async (
   }
 
   redirect("/login")
+}
+
+export const generateToken = async (username: string) => {
+  const newToken = await updateUserApiToken(username)
+  revalidatePath("/me")
+  return newToken
 }
