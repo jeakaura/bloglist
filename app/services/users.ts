@@ -32,6 +32,13 @@ export const getUsernameWithBlogs = async (username: string) => {
   })
 }
 
+export const getUserWithBlogsByApiToken = async (apiToken: string) => {
+  return db.query.users.findFirst({
+    where: eq(users.apiToken, apiToken),
+    with: { blogs: true },
+  })
+}
+
 export const updateUserApiToken = async (username: string) => {
   const user = await db.query.users.findFirst({
     where: eq(users.username, username),
