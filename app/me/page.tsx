@@ -2,9 +2,23 @@
 
 import { useSession } from "next-auth/react"
 import { generateToken } from "../actions/users"
+import { getReadingList } from "../actions/readinglist"
+import { useEffect, useState } from "react"
 
 const Me = () => {
     const { data: session, update } = useSession()
+    const [readingList, setReadingList] = useState<Awaited<ReturnType<typeof getReadingList>>>([])
+
+    useEffect(() => {
+        if (!session?.user?.id) return
+
+        const loadReadingList = async () => {
+            const blogs = await getReadingList()
+            setReadingList(blogs ?? [])
+        }
+
+        loadReadingList()
+    }, [session?.user?.id])
 
     const handleGenerateToken = async () => {
         const username = session?.user?.email
@@ -23,6 +37,16 @@ const Me = () => {
                         <h2 className="text-2xl font-bold mb-4">My Profile</h2>
                         <p><b>Name:</b> {session ? session.user?.name : "Not logged in"}</p>
                         <p><b>Username:</b> {session ? session.user?.email : "Not logged in"}</p>
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-bold mt-6 mb-2">Reading List</h3>
+                        {readingList.length === 0 ? (
+                            <p>No blogs in your reading list.</p>
+                        ) : (
+                            readingList.map((blog) => (
+                                <p key={blog.id}>{blog.blog.title}</p>
+                            ))
+                        )}
                     </div>
                     <div>
                         <h3 className="text-xl font-bold mt-6 mb-2">API Token</h3>

@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { addBlog, incrementBlogLikes } from "../services/blogs"
+import { addBlogToReadingList } from "../services/readinglist"
 import { auth } from "@/auth"
 
 export const createBlog = async (
@@ -37,9 +38,11 @@ export const createBlog = async (
     }
   }
   
-  await addBlog(title, author, url)
+  const blog = await addBlog(title, author, url)
+  await addBlogToReadingList(session.user.id, blog.id)
 
   revalidatePath("/blogs")
+  revalidatePath("/me")
   return { error: "", success: true }
 }
 

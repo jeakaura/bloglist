@@ -15,7 +15,12 @@ export const addBlog = async (title: string, author: string, url: string) => {
     throw new Error("Not logged in")
   }
 
-  await db.insert(blogs).values({ title, author, url, likes: 0, userId: user.id })
+  const [blog] = await db
+    .insert(blogs)
+    .values({ title, author, url, likes: 0, userId: user.id })
+    .returning({ id: blogs.id })
+
+  return blog
 }
 
 export const getBlogById = async (id: number) => {

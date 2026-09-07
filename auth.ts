@@ -13,22 +13,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
+        const username = credentials?.username
+        const password = credentials?.password
+
+        if (typeof username !== "string" || typeof password !== "string") {
           return null
         }
 
         const user = await db.query.users.findFirst({
-          where: eq(users.username, credentials.username as string),
+          where: eq(users.username, username),
         })
 
-        if (!user || !user.passwordHash) {
+        if (!user || typeof user.passwordHash !== "string") {
           return null
         }
 
-        const isValid = await bcrypt.compare(
-          credentials.password as string,
-          user.passwordHash,
-        )
+        const isValid = await bcrypt.compare(password, user.passwordHash)
 
         if (!isValid) {
           return null
@@ -52,6 +52,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
+        token.id = user.id
         token.apiToken = user.apiToken
       }
 
@@ -62,7 +63,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token
     },
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && typeof token.id === "string") {
+        session.user.id = token.id
         session.user.apiToken = token.apiToken
       }
 
