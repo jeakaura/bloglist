@@ -42,3 +42,25 @@ export const getReadingList = async () => {
     },
   })
 }
+
+export const toggleReadStatus = async (userId: string, blogId: number) => {
+  const userIdInt = parseInt(userId, 10)
+
+  const entry = await db.query.readingList.findFirst({
+    where: and(
+      eq(readingList.userId, userIdInt),
+      eq(readingList.blogId, blogId),
+    ),
+  })
+
+  if (!entry) {
+    throw new Error("Reading list entry not found")
+  }
+
+  await db.update(readingList)
+    .set({ read: !entry.read })
+    .where(and(
+      eq(readingList.userId, userIdInt),
+      eq(readingList.blogId, blogId),
+    ))
+}
