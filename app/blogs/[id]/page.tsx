@@ -13,11 +13,11 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="border-solid border-l border-r border-stone-700 max-w-3xl mx-auto min-h-[calc(100vh-57px)] p-10">
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-4">{blog.title}</h2>
-        <p>By: {blog.author}</p>
+      <div  data-testid="blog-detail" className="mb-4">
+        <h2 data-testid="blog-title" className="text-2xl font-bold mb-4">{blog.title}</h2>
+        <p data-testid="blog-author">By: {blog.author}</p>
       </div>
-      <p>Likes: {blog.likes}</p>
+      <p data-testid="blog-likes">Likes: {blog.likes}</p>
 
       <div className="flex gap-2 mt-1">
         <form action={likeBlog}>
@@ -26,7 +26,7 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         </form>
         <form action={addToReadingList}>
           <input type="hidden" name="blogId" value={blog.id} />
-          <button className="cursor-pointer rounded-xl border border-green-600 py-0 px-2 text-center text-sm text-green-600 transition-all hover:bg-green-600 hover:text-white" type="submit">add to reading list</button>
+          <button data-testid="add-to-reading-list-button" className="cursor-pointer rounded-xl border border-green-600 py-0 px-2 text-center text-sm text-green-600 transition-all hover:bg-green-600 hover:text-white" type="submit">add to reading list</button>
         </form>
       </div>
 

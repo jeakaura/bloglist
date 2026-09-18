@@ -38,13 +38,14 @@ const NewBlog = () => {
         </div>
         <div>
           <label>
-            Url {" "}
+            URL {" "}
             <input className="border border-black rounded mb-2" type="text" name="url" />
           </label>
         </div>
         <button 
           className="mt-4 cursor-pointer bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm text-white"
           type="submit"
+          data-testid="create-blog-button"
         >
           Create
         </button>

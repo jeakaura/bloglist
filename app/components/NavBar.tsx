@@ -9,13 +9,13 @@ const NavBar = () => {
   return (
     <nav className="sticky top-0 z-50 border-solid border-b border-stone-700 bg-background text-white px-6 py-4 flex items-center gap-4">
       <Link href="/" className="text-stone-700 hover:underline">
-        Home
+        home
       </Link>
       <Link href="/blogs" className="text-stone-700 hover:underline">
-        Blogs
+        blogs
       </Link>
       <Link href="/users" className="text-stone-700 hover:underline">
-        Users
+        users
       </Link>
       <div className="ml-auto flex items-center gap-4">
         {session ? (
@@ -24,9 +24,10 @@ const NavBar = () => {
               Create new
             </Link>
             <Link href="/me" className="text-stone-700 hover:underline">
-              Me ({session.user?.name})
+              me
             </Link>
             <button
+              test-id="logout"
               onClick={() => signOut()}
               className="cursor-pointer border border-solid border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-2 py-0 rounded-xl text-sm"
             >
@@ -35,11 +36,11 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <Link href="/login" className="cursor-pointer rounded-xl border border-blue-600 py-0 px-2 text-center text-sm text-blue-600 transition-all hover:bg-blue-600 hover:text-white">
-              Login
+            <Link test-id="login" title="login" href="/login" className="cursor-pointer rounded-xl border border-blue-600 py-0 px-2 text-center text-sm text-blue-600 transition-all hover:bg-blue-600 hover:text-white">
+              login
             </Link>
-            <Link href="/register" className="cursor-pointer rounded-xl bg-blue-600 py-0 px-3 text-center text-sm text-white transition-all hover:bg-blue-700 hover:text-white">
-              Register
+            <Link test-id="register" href="/register" className="cursor-pointer rounded-xl bg-blue-600 py-0 px-3 text-center text-sm text-white transition-all hover:bg-blue-700 hover:text-white">
+              register
             </Link>
           </>
         )}

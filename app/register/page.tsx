@@ -15,32 +15,33 @@ export default function RegisterPage() {
           <label>
             Username{" "}
             <input className="border border-black rounded mb-2" type="text" name="username" defaultValue={state.values?.username} required />
-            {state.errors.username && <p style={{ color: "red" }}>{state.errors.username}</p>}
+            {state.errors.username && <p data-testid="username-error" style={{ color: "red" }}>{state.errors.username}</p>}
           </label>
         </div>
         <div>
           <label>
             Name{" "}
             <input className="border border-black rounded mb-2" type="text" name="name" defaultValue={state.values?.name} required />
-            {state.errors.name && <p style={{ color: "red" }}>{state.errors.name}</p>}
+            {state.errors.name && <p data-testid="name-error" style={{ color: "red" }}>{state.errors.name}</p>}
           </label>
         </div>
         <div>
           <label>
             Password{" "}
             <input className="border border-black rounded mb-2" type="password" name="password" defaultValue={state.values?.password} required />
-            {state.errors.password && <p style={{ color: "red" }}>{state.errors.password}</p>}
+            {state.errors.password && <p data-testid="password-error" style={{ color: "red" }}>{state.errors.password}</p>}
           </label>
         </div>
         <div>
           <label>
             Confirm Password{" "}
             <input className="border border-black rounded mb-4" type="password" name="passwordConfirm" defaultValue={state.values?.passwordConfirm} required />
-            {state.errors.passwordConfirm && <p style={{ color: "red" }}>{state.errors.passwordConfirm}</p>}
+            {state.errors.passwordConfirm && <p data-testid="passwordConfirm-error" style={{ color: "red" }}>{state.errors.passwordConfirm}</p>}
           </label>
         </div>
         <button 
           className="cursor-pointer bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm text-white"
+          data-testid="register-button"
           type="submit"
         >
           Register
