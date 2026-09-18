@@ -406,6 +406,7 @@ test.describe("Blog Application", () => {
         page.waitForResponse((response) => response.status() === 200),
         page.getByTestId("add-to-reading-list-button").click(),
       ])
+      await page.waitForURL("/me")
 
       await page.goto("/blogs")
       await page.getByRole("link", { name: "Second Blog" }).click()
@@ -414,6 +415,7 @@ test.describe("Blog Application", () => {
         page.waitForResponse((response) => response.status() === 200),
         page.getByTestId("add-to-reading-list-button").click(),
       ])
+      await page.waitForURL("/me")
 
       // Go to me page
       await page.goto("/me")

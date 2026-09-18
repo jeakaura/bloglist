@@ -65,7 +65,7 @@ const Me = () => {
                         {readingList.some((blog) => !blog.read) ? (
                             readingList.map((blog) => (
                                 (!blog.read) && (
-                                    <div key={blog.id} className="flex items-center justify-between bg-yellow-50 rounded-xl p-4 mb-2">
+                                    <span key={blog.id} className="flex items-center justify-between bg-yellow-50 rounded-xl p-4 mb-2">
                                         <p className="mr-4">{blog.blog.title}</p>
                                         <button
                                             data-testid="mark-read-"
@@ -74,7 +74,7 @@ const Me = () => {
                                         >
                                             mark as read
                                         </button>
-                                    </div>
+                                    </span>
                                 )
                             ))
                         ) : (
